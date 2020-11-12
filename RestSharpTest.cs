@@ -17,14 +17,16 @@ namespace AddressBookJsonServer
         }
         public class AddressBook
         {
+            public int id { get; set; }
             public string name { get; set; }
             public string city { get; set; }
             public string state { get; set; }
             public string phone { get; set; }
             public string email { get; set; }
 
-            public AddressBook(string name, string city, string state, string phone, string email)
+            public AddressBook(int id,string name, string city, string state, string phone, string email)
             {
+                this.id = id;
                 this.name = name;
                 this.city = city;
                 this.state = state;
@@ -41,6 +43,7 @@ namespace AddressBookJsonServer
         /// Addressbook data are retrieved from the json file
         /// and are stored in a list. The list count matches with the
         /// number of data
+        /// UC22
         [TestMethod]
         public void OnCallingGetAddressBook()
         {
@@ -55,32 +58,38 @@ namespace AddressBookJsonServer
             }
             );
         }
-        /// Adding a list of
-        /// 
-        /// </summary>
+        /// Adding a list of employees and adding it to the json file
+        /// by calling post api
+        /// UC23
         [TestMethod]
         public void OnCallingPostAddsMultipleAddress() {
-            List<AddressBook> addressBook = new List<AddressBook>();
-            addressBook.Add(new AddressBook("Mahesh","Kochi","Kerala","8993839","mahesh@gmail.com"));
-            addressBook.Add(new AddressBook("Prasoon", "Mathura", "UP", "837731", "prasoon@gmail.com"));
-            addressBook.Add(new AddressBook("Ketaki", "Salem", "TN", "7383939", "ketaki@gmail.com"));
-            List<AddressBook> result = new List<AddressBook>();
-            addressBook.ForEach(address => {
-                RestRequest request = new RestRequest(" /AddressBook/list", Method.POST);
-                JsonObject jsonObj = new JsonObject();
-                jsonObj.Add("name", address.name);
-                jsonObj.Add("city", address.city);
-                jsonObj.Add("state", address.state);
-                jsonObj.Add("phone", address.phone);
-                jsonObj.Add("email", address.email);
-                request.AddParameter("application/json", jsonObj, ParameterType.RequestBody);
-                IRestResponse response = client.Execute(request);
-                Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
-                AddressBook book = JsonConvert.DeserializeObject<AddressBook>(response.Content);
-                result.Add(book);
+            try {
+                List<AddressBook> addressBook = new List<AddressBook>();
+                addressBook.Add(new AddressBook(5,"Mahesh", "Kochi", "Kerala", "8993839", "mahesh@gmail.com"));
+                addressBook.Add(new AddressBook(6,"Prasoon", "Mathura", "UP", "837731", "prasoon@gmail.com"));
+                addressBook.Add(new AddressBook(7,"Ketaki", "Salem", "TN", "7383939", "ketaki@gmail.com"));
+                List<AddressBook> result = new List<AddressBook>();
+                addressBook.ForEach(address => {
+                    RestRequest request = new RestRequest("/AddressBook/list", Method.POST);
+                    JsonObject jsonObj = new JsonObject();
+                    jsonObj.Add("name", address.name);
+                    jsonObj.Add("city", address.city);
+                    jsonObj.Add("state", address.state);
+                    jsonObj.Add("phone", address.phone);
+                    jsonObj.Add("email", address.email);
+                    request.AddParameter("application/json", jsonObj, ParameterType.RequestBody);
+                    IRestResponse response = client.Execute(request);
+                    Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+                    AddressBook book = JsonConvert.DeserializeObject<AddressBook>(response.Content);
+                    result.Add(book);
+                }
+                );
+                Assert.AreEqual(3, result.Count);
             }
-            );
-            Assert.AreEqual(3, result.Count);
+            catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
+            
         }
     }
 }

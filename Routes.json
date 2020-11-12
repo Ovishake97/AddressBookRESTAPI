@@ -1,6 +1,6 @@
 {
 "/AddressBook/list":"/AddressBook",
-"/AddressBook/get/:name":"/AddressBook/:name",
-"/AddressBook/update/:name":"/AddressBook/:name",
-"/AddressBook/delete/:name":"/AddressBook/:name"
+"/AddressBook/get/:id":"/AddressBook/:id",
+"/AddressBook/update/:id":"/AddressBook/:id",
+"/AddressBook/delete/:id":"/AddressBook/:id"
 }
