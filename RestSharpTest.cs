@@ -72,6 +72,7 @@ namespace AddressBookJsonServer
                 addressBook.ForEach(address => {
                     RestRequest request = new RestRequest("/AddressBook/list", Method.POST);
                     JsonObject jsonObj = new JsonObject();
+                    jsonObj.Add("id", address.id);
                     jsonObj.Add("name", address.name);
                     jsonObj.Add("city", address.city);
                     jsonObj.Add("state", address.state);
@@ -88,8 +89,24 @@ namespace AddressBookJsonServer
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message);
-            }
-            
+            }   
+        }
+        /// On calling put, it updates the data as wished and the status code is
+        /// verfied along with the updated data
+        /// UC24
+        [TestMethod]
+        public void OnCallingPutUpdatesEntry() {
+            RestRequest request = new RestRequest("/AddressBook/update/4",Method.PUT);
+            JsonObject jsonObj = new JsonObject();
+            jsonObj.Add("name", "Karthik");
+            jsonObj.Add("city", "Ahmedabad");
+            jsonObj.Add("state", "Gujarat");
+            request.AddParameter("application/json", jsonObj, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            AddressBook book = JsonConvert.DeserializeObject<AddressBook>(response.Content);
+            Assert.AreEqual("Karthik", book.name);
+            Assert.AreEqual("Gujarat", book.state);
         }
     }
 }
