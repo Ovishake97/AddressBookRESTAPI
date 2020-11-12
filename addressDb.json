@@ -1,0 +1,33 @@
+{
+  "AddressBook": [
+    {
+      "name": "Boris",
+      "city": "Panaji",
+      "state": "Goa",
+	"phone":"333021234",
+"email":"boris@gmail.com"
+    },
+    {
+      "name": "Ashim",
+      "city": "Guwahati",
+      "state": "Assam",
+       "phone":"99383731",
+	"email":"ashim@gmail.com"
+
+    },
+    {
+      "name": "Hussain",
+      "city": "Hyderabad",
+      "state": "Telengana",
+       "phone":"987365173",
+        "email":"hussain@gmail.com"
+    },
+    {
+      "name": "Arpita",
+      "city": "Kolkata",
+      "state": "WB",
+       "phone":"9887432",
+        "email":"arpita@gmail.com"
+    }
+  ]
+}
