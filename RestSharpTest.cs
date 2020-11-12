@@ -108,5 +108,14 @@ namespace AddressBookJsonServer
             Assert.AreEqual("Karthik", book.name);
             Assert.AreEqual("Gujarat", book.state);
         }
+        /// On calling delete api, an address with a particular id is deleted
+        /// It is verified with the obtained status code
+        /// UC25
+        [TestMethod]
+        public void OnCallingDeleteEntryIsDeleted() {
+            RestRequest request = new RestRequest("/AddressBook/delete/6", Method.DELETE);
+            IRestResponse response = client.Execute(request);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
     }
 }
