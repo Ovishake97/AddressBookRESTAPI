@@ -25,12 +25,10 @@
       "email": "hussain@gmail.com"
     },
     {
-      "id": 4,
-      "name": "Arpita",
-      "city": "Kolkata",
-      "state": "WB",
-      "phone": "9887432",
-      "email": "arpita@gmail.com"
+      "name": "Karthik",
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "id": 4
     },
     {
       "name": "Mahesh",
